@@ -47,4 +47,24 @@ Es un **framework** que permite escribir pruebas unitarias de nuestro código. A
         - ```java 
           @Disable
         Sirve para deshabilitar un método o una prueba unitaria.
-      
+
+
+2. ### Assertions
+Es una clase final que contiene métodos estáticos para hacer afirmaciones (assertions) en pruebas unitarias. Permite validar automáticamente que el código se comporte como esperas, y si no, la prueba falla.
+Para realizar las pruebas nos apoyamos de los métodos que esta clase nos provee.
+
+
+
+
+
+
+
+
+
+
+
+
+## Apuntes
+
+
+- **Nota 01:** Dentro de la clase `CuentaTest` existe un test llamado `testCuenta()`. Este test evalua si los dos objetos Cuenta son iguales, para eso nos apoyamos con el método estático `assertNotEquals()`. Este método comparará si ambos objetos son iguales (en relación a su referencia en memoria); este fallará ya que, al usar la notación `@Data` de Lombon dentro de la clase `Cuenta` sobreescribimos el método `equals()` y `hashCode()`. Donde, `equals()` nos permitirá comparar solo si los valores de los atributos de la clase son iguales, ignorando su referencia en memoria. Y el segundo, devuelve un valor entero que es el *identificador* de la clase. Si no sobrescribiríamos el método `equals()`, al momento de comparar solo validaría si ambos objetos comparten la misma referencia en memoria. **CABE SEÑALAR QUE AMBOS MÉTODOS VAN DE LA MANO, SI IMPLEMENTAS EQUALS TIENES QUE IMPLEMENTAR HASHCODE**
