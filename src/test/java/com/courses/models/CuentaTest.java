@@ -2,6 +2,8 @@ package com.courses.models;
 
 import org.junit.jupiter.api.Test;
 
+import com.courses.business.transactions.DebitoTransactions;
+import com.courses.utils.Utils;
 
 import java.math.BigDecimal;
 
@@ -57,13 +59,29 @@ class CuentaTest {
         Cuenta cuenta = Cuenta.builder()
             .name("Usuario 1")
             .accountNumber("123456789")
-            .amount(new BigDecimal("1000"))
+            .amount(new BigDecimal("10000"))
             .build();
         Cuenta cuentaDos = Cuenta.builder()
             .name("Usuario 2")
             .accountNumber("987654321")
-            .amount(new BigDecimal("1000"))
+            .amount(new BigDecimal("200"))
             .build();
+
+        BigDecimal montoTransferido = new BigDecimal(1000);
+        BigDecimal saldoEsperadoUno = new BigDecimal("8950.00");
+        BigDecimal saldoEsperadoDos = new BigDecimal("1200.00");
+        
+        BigDecimal comision = Utils.getComision(montoTransferido);
+        assertNotNull(comision);
+        
+        DebitoTransactions debitoTransactions = new DebitoTransactions();
+        debitoTransactions.transferencias(cuenta, cuentaDos, montoTransferido);
+        
+        assertNotNull(cuenta);
+        assertNotNull(cuentaDos);
+
+        assertEquals(saldoEsperadoUno, cuenta.getAmount());
+        assertEquals(saldoEsperadoDos, cuentaDos.getAmount());
 
         
     }
