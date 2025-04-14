@@ -6,7 +6,6 @@ import java.util.Objects;
 import org.springframework.stereotype.Service;
 // import org.springframework.transaction.PlatformTransactionManager;
 
-import com.courses.exceptions.BadRequestException;
 import com.courses.exceptions.NotFoundException;
 import com.courses.models.Cuenta;
 import com.courses.utils.Utils;
