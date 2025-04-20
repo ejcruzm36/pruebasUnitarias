@@ -20,4 +20,8 @@ public class Utils {
 
     }
 
+    public static boolean isInsuficiente(BigDecimal countAmount, BigDecimal amount) {
+        return amount.compareTo(countAmount) > 0;
+    }
+
 }

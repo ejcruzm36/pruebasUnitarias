@@ -6,8 +6,11 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.courses.business.transactions.DebitoTransactions;
+import com.courses.enums.ExceptionCode;
+import com.courses.exceptions.BadRequestException;
 import com.courses.models.Cuenta;
 import com.courses.repositories.ICuentaRepository;
+import com.courses.utils.Utils;
 
 import lombok.RequiredArgsConstructor;
 
@@ -24,19 +27,25 @@ public class TransferenciaService {
     }
 
     public boolean startTransferencia() {
-        /* Cuenta cuenta = Cuenta.builder()
+        Cuenta cuentaUno = Cuenta.builder()
             .name("Usuario 1")
             .accountNumber("123456789")
-            .amount(new BigDecimal("10000"))
-            .build(); */
-        Cuenta cuenta = null;
+            .amount(BigDecimal.ZERO)
+            .build();
+        // Cuenta cuenta = null;
         Cuenta cuentaDos = Cuenta.builder()
             .name("Usuario 2")
             .accountNumber("987654321")
             .amount(new BigDecimal("200"))
             .build();
         
-        debitoTransactions.transferencias(cuenta, cuentaDos, new BigDecimal("1000"));
+        BigDecimal amount = new BigDecimal("1000");
+
+        if (Utils.isInsuficiente(cuentaUno.getAmount(), amount)) {
+            throw new BadRequestException(ExceptionCode.AMOUNT_INSUFICIENT.getMessage()); 
+        }
+        
+        debitoTransactions.transferencias(cuentaUno, cuentaDos, amount);
 
         return true;
 

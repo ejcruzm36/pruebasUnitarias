@@ -6,6 +6,7 @@ import java.util.Objects;
 import org.springframework.stereotype.Service;
 // import org.springframework.transaction.PlatformTransactionManager;
 
+import com.courses.enums.ExceptionCode;
 import com.courses.exceptions.NotFoundException;
 import com.courses.models.Cuenta;
 import com.courses.utils.Utils;
@@ -23,7 +24,7 @@ public class DebitoTransactions {
 
         if (Objects.isNull(cuentaOrigen) || 
             Objects.isNull(cuentaDestino)) {
-            throw new NotFoundException("Las cuentas no pueden ser nulas");
+            throw new NotFoundException(ExceptionCode.NULL_AMOUNT.getMessage());
         }
         
         BigDecimal comision = Utils.getComision(monto);

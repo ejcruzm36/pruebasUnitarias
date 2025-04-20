@@ -3,6 +3,8 @@ package com.courses.models;
 import org.junit.jupiter.api.Test;
 
 import com.courses.business.transactions.DebitoTransactions;
+import com.courses.enums.ExceptionCode;
+import com.courses.exceptions.NotFoundException;
 import com.courses.utils.Utils;
 
 import java.math.BigDecimal;
@@ -84,6 +86,31 @@ class CuentaTest {
         assertEquals(saldoEsperadoDos, cuentaDos.getAmount());
 
         
+    }
+
+    @Test
+    void testExceptions(){
+
+        DebitoTransactions debitoTransactions = new DebitoTransactions();
+
+        Cuenta cuentaUno = null;
+        // Cuenta cuenta = null;
+        Cuenta cuentaDos = Cuenta.builder()
+            .name("Usuario 2")
+            .accountNumber("987654321")
+            .amount(new BigDecimal("200"))
+            .build();
+
+        BigDecimal amount = new BigDecimal("1000");
+
+        Exception exception = assertThrows(NotFoundException.class, () -> {
+            debitoTransactions.transferencias(cuentaUno, cuentaDos, amount);
+        });
+
+        String expectedMessage = ExceptionCode.NULL_AMOUNT.getMessage();
+        String actualMessage = exception.getMessage();
+        assertTrue(actualMessage.equals(expectedMessage));
+
     }
 
 
