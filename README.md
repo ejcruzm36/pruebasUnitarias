@@ -59,7 +59,7 @@ Las pruebas unitarias son **fragmentos de código** que se usan para **verificar
     - `assertEquals(par1, par2)`: Evalua si los dos parámetros son iguales.
     - `assertTrue(condition)`, `assertFalse(condition)`: Recibe una condicion y evalua si es true o false respectivamente.
     - `assertNull(object)`, `assertNotNull(object)`: Evalua si un objeto es nulo o no.
-    - `assertThrows(typeException, () -> { expresion que lanza excepcion })`: Evalua si lanza una excepcion del tipo enviado o no. Este devuelve una excepción, se le puede asignar a una variable del tipo Exception y evaluar de otras formas. _Revisar testExceptions()_.
+    - `assertThrows(typeException, () -> { expresion que lanza excepcion })`: Evalua si lanza una excepcion del tipo enviado o no. Este devuelve una excepción, se le puede asignar a una variable del tipo Exception y evaluar de otras formas. *Revisar testExceptions()*.
     - `assertAll( () -> { lambdas } )`: Recibe expresiones lambdas que contienen assertions.
 
   <li><h3 style="color: #EBB344">Mockito</h3></li>
