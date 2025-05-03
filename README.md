@@ -52,6 +52,13 @@ Es un **framework** que permite escribir pruebas unitarias de nuestro código. A
 2. ### Assertions
 Es una clase final que contiene métodos estáticos para hacer afirmaciones (assertions) en pruebas unitarias. Permite validar automáticamente que el código se comporte como esperas, y si no, la prueba falla.
 Para realizar las pruebas nos apoyamos de los métodos que esta clase nos provee.
+Estos son algunos métodos que nos provee esta clase. *Todos los siguientes métodos reciben como último parámetro un mensaje que se mostrará cuando falla la aseción*
+
+  - `assertEquals(par1, par2)`: Evalua si los dos parámetros son iguales.
+  - `assertTrue(condition)`, `assertFalse(condition)`: Recibe una condicion y evalua si es true o false respectivamente.
+  - `assertNull(object)`, `assertNotNull(object)`: Evalua si un objeto es nulo o no.
+  - `assertThrows(typeException, () -> { expresion que lanza excepcion })`: Evalua si lanza una excepcion del tipo enviado o no. Este devuelve una excepción, se le puede asignar a una variable del tipo Exception y evaluar de otras formas. _Revisar testExceptions()_.
+  - `assertAll( () -> { lambdas } )`: Recibe expresiones lambdas que contienen assertions.
 
 
 

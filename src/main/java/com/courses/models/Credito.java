@@ -11,11 +11,15 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Cuenta {
+public class Credito {
 
-    private String name;
+    private String id;
+    private String type;
     private BigDecimal amount;
-    private String accountNumber;
-    private Banco banco;
+    private BigDecimal amountTotal;
+    private BigDecimal cout;
+    private Integer months;
+    private Cuenta account;
+
 
 }

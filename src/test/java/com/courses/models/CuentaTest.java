@@ -8,6 +8,7 @@ import com.courses.exceptions.NotFoundException;
 import com.courses.utils.Utils;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -71,7 +72,7 @@ class CuentaTest {
 
         BigDecimal montoTransferido = new BigDecimal(1000);
         BigDecimal saldoEsperadoUno = new BigDecimal("8950.00");
-        BigDecimal saldoEsperadoDos = new BigDecimal("1200.00");
+        BigDecimal saldoEsperadoDos = new BigDecimal(1200.00);
         
         BigDecimal comision = Utils.getComision(montoTransferido);
         assertNotNull(comision);
@@ -94,7 +95,6 @@ class CuentaTest {
         DebitoTransactions debitoTransactions = new DebitoTransactions();
 
         Cuenta cuentaUno = null;
-        // Cuenta cuenta = null;
         Cuenta cuentaDos = Cuenta.builder()
             .name("Usuario 2")
             .accountNumber("987654321")
@@ -109,7 +109,51 @@ class CuentaTest {
 
         String expectedMessage = ExceptionCode.NULL_AMOUNT.getMessage();
         String actualMessage = exception.getMessage();
-        assertTrue(actualMessage.equals(expectedMessage));
+        // assertTrue(actualMessage.equals(expectedMessage));
+        assertEquals(expectedMessage, actualMessage);
+
+    }
+
+    @Test
+    void testRelations(){
+        Cuenta cuenta1 = Cuenta.builder()
+            .name("Usuario 1")
+            .accountNumber("123456789")
+            .amount(new BigDecimal("10000"))
+            .build();
+        Cuenta cuenta2 = Cuenta.builder()
+            .name("Usuario 2")
+            .accountNumber("987654321")
+            .amount(new BigDecimal("200"))
+            .build();
+
+        Banco banco = Banco.builder()
+            .name("Banco 1")
+            .address("Direccion 1")
+            .cuentas(new ArrayList<>())
+            .build();
+
+        banco.addCuenta(cuenta1);
+        banco.addCuenta(cuenta2);
+
+        assertAll(
+            () -> assertEquals(2, banco.getCuentas().size()),
+            () -> assertEquals("Banco 1", cuenta1.getBanco().getName()),
+            () -> assertEquals("Usuario 1", banco.getCuentas().stream()
+                    .filter(c -> c.getName().equals("Usuario 1"))
+                    .findFirst()
+                    .orElseThrow(() -> new NotFoundException("Cuenta no encontrada"))
+                    .getName()),
+
+            () -> assertThrows(NotFoundException.class, () -> {
+                    banco.getCuentas().stream()
+                        .filter(c -> c.getName().equals("Usuario 3"))
+                        .findFirst()
+                        .orElseThrow(() -> new NotFoundException("Cuenta no encontrada"));
+            })
+
+
+        );
 
     }
 
